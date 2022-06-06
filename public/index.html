@@ -14,4 +14,30 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <script>
+      const handleWindow =  function () {
+          let html = document.querySelector('html');
+          let body = document.querySelector('body');
+          let $header = document.querySelector('.c-header');
+          let $footer = document.querySelector('.c-footer');
+          let $sidebarMyPage = document.querySelector('.c-sidebar');
+
+          let hasHeaderHeightVariable = !!getComputedStyle(document.documentElement).getPropertyValue('--header-height')
+          let hasFooterHeightVariable = !!getComputedStyle(document.documentElement).getPropertyValue('--footer-height')
+
+          if ($header && !hasHeaderHeightVariable) {
+              html.style.setProperty('--header-height', $header.clientHeight + 'px');
+          }
+          if ($footer && !hasFooterHeightVariable) {
+              html.style.setProperty('--footer-height', $footer.clientHeight + 'px');
+          }
+      }
+      window.onload = function () {
+          handleWindow();
+      };
+      // The resize isn't very necessary:
+      window.addEventListener('resize', function () {
+          handleWindow();
+      });
+  </script>
 </html>
