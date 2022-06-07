@@ -6,6 +6,10 @@ Vue.use(Vuex)
 import dataProducts from './dataProducts'
 import dataCategories from './dataCategories'
 
+function updateLocalStorage(cart){
+  localStorage.setItem('cart',JSON.stringify(cart));
+}
+
 const storeData = {
   state: {
     products: dataProducts,
@@ -37,13 +41,16 @@ const storeData = {
       }else{
         state.inCarts.push({...product, qty:1})
       }
+      updateLocalStorage(state.inCarts)
     },
     REMOVE_TO_CART(state,product){
       state.inCarts = state.inCarts.filter(item => item.id !== product.id)
+      updateLocalStorage(state.inCarts)
     },
     PLUS_QTY(state,product){
       const item = state.inCarts.find(item => item.id == product.id)
       item.qty++
+      updateLocalStorage(state.inCarts)
     },
     MINUS_QTY(state,product){
       const item = state.inCarts.find(item => item.id == product.id)
@@ -52,7 +59,18 @@ const storeData = {
       }else{
         state.inCarts = state.inCarts.filter(item => item.id !== product.id)
       }
+      updateLocalStorage(state.inCarts)
     },
+    UPDATE_CART_FROM_LOCAL_STORAGE(state){
+      const cart = localStorage.getItem('cart')
+      if(cart){
+        state.inCarts = JSON.parse(cart)
+      }
+    },
+    RESET_CART(state){
+      state.inCarts = []
+      updateLocalStorage(state.inCarts)
+    }
   },
   actions: {
     getProductCategory({commit},category){
