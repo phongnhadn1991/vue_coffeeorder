@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import EventBus from "../eventbus/event-bus"
+
 import HomeSlider from "@/components/homes/HomeSlider";
 import ProductList from "@/components/products/ProductList";
 import CartList from "@/components/carts/CartList"
@@ -22,5 +24,13 @@ export default {
     CartList,
     HomeNews,
   },
+  created(){
+        EventBus.$on('checkout-data', this.handler);
+    },
+     methods: {
+        handler(e){
+            console.log('HELLO' + e)
+        }
+    },
 };
 </script>

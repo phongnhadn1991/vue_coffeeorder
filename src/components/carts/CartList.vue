@@ -59,9 +59,9 @@
             <div class="col" style="padding-left: 0">Tổng tiền</div>
             <div class="col text-right">{{ formatPrice(totalCart) }}</div>
           </div>
-          <button class="btn"
+          <a class="btn" @click="btnCheckout"
           :class="{ disabled: inCarts.length == 0}"
-          >THANH TOÁN</button>
+          >THANH TOÁN</a>
         </div>
       </div>
     </div>
@@ -69,6 +69,7 @@
 </template>
 
 <script>
+
 import CartItem from "@/components/carts/CartItem";
 import { mixinFormatPrice } from '@/mixins/mixinFormatPrice'
 import { mapGetters } from "vuex";
@@ -81,7 +82,8 @@ export default {
   data() {
     return {
       pirceShipping: 0,
-      textFree: 'Miễn Phí'
+      textFree: 'Miễn Phí',
+      emtyData: {}
     };
   },
 
@@ -105,6 +107,9 @@ export default {
         this.pirceShipping = 0
       }
       return this.formatPrice(this.pirceShipping)
+    },
+    btnCheckout(){
+      this.$router.push({name: 'checkout'})
     }
   },
 };
