@@ -23,7 +23,7 @@
           <div v-else>
               <div class="alert alert-warning text-center" role="alert">
                 Chưa có sản phẩm nào trong giỏ hàng !
-                </div>  
+                </div>
           </div>
           <div class="back-to-shop">
             <router-link :to="{name: 'product.list'}">&leftarrow; <span class="text-muted">Tiếp tục mua hàng</span></router-link>
@@ -36,7 +36,7 @@
           <hr />
           <div class="row">
             <div class="col" style="padding-left: 0">
-              {{ inCarts.length }} Sản phẩm 
+              {{ inCarts.length }} Sản phẩm
             </div>
             <div class="col text-right">{{ formatPrice(subToTalCart) }}</div>
           </div>
@@ -59,9 +59,9 @@
             <div class="col" style="padding-left: 0">Tổng tiền</div>
             <div class="col text-right">{{ formatPrice(totalCart) }}</div>
           </div>
-          <a class="btn" @click="btnCheckout"
-          :class="{ disabled: inCarts.length == 0}"
-          >THANH TOÁN</a>
+          <router-link class="btn" :to="{name: 'checkout'}"
+            :class="{ disabled: inCarts.length == 0}"
+          >THANH TOÁN</router-link>
         </div>
       </div>
     </div>
@@ -90,7 +90,7 @@ export default {
   mounted() {},
   computed: {
     ...mapGetters(["inCarts", "subToTalCart"]),
-    
+
     totalCart() {
       return this.subToTalCart + this.pirceShipping;
     },
@@ -108,9 +108,6 @@ export default {
       }
       return this.formatPrice(this.pirceShipping)
     },
-    btnCheckout(){
-      this.$router.push({name: 'checkout'})
-    }
   },
 };
 </script>
